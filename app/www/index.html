@@ -3,102 +3,267 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(33, 34, 30);
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: 'hidden';
+        }
+
+        #game_pad {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border-color: rgb(255, 255, 255);
+        }
+
+        #game_pad tbody {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #game_pad tr {
+            /* width: 100%; */
+            /* height: 100%; */
+            width: 100%;
+            flex: 5;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #game_pad tr td {
+            flex: 1;
+        }
+
+        .game_key {
+            width: 100%;
+            height: 100%;
+            border-radius: 1000px;
+            border: 1px;
+            box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.8);
+            background-color: rgb(243, 13, 71);
+            font-size: 50px;
+            color: rgb(253, 253, 253);
+            -webkit-user-select: none;
+        }
+    </style>
     <title>Hello</title>
 </head>
 
 <body>
-    Hello 你好
-    <button onmousedown="handleWestMousedown()" onmouseup="handleWestMouseup()">左</button>
-    <button onmousedown="handleNorthMousedown()" onmouseup="handleNorthMouseup()">上</button>
-    <button onmousedown="handleSouthMousedown()" onmouseup="handleSouthMouseup()">下</button>
-    <button onmousedown="handleEastMousedown()" onmouseup="handleEastMouseup()">右</button>
-    <button onmousedown="handleAMousedown()" onmouseup="handleAMouseup()">A</button>
-    <button onmousedown="handleBMousedown()" onmouseup="handleBMouseup()">B</button>
-    <button onmousedown="handleCMousedown()" onmouseup="handleCMouseup()">C</button>
-    <button onmousedown="handleDMousedown()" onmouseup="handleDMouseup()">D</button>
+    <div id="container">
+        <table id="game_pad">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class="game_key" onmousedown="send('key_north',1)" onmouseup="send('key_north',0)">↑</button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="game_key" onmousedown="handleDMousedown()" onmouseup="handleDMouseup()">Y</button>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="game_key" onmousedown="handleWestMousedown()" onmouseup="handleWestMouseup()">←</button>
+                    </td>
+                    <td></td>
+                    <td>
+                        <button class="game_key" onmousedown="handleEastMousedown()" onmouseup="handleEastMouseup()">→</button>
+                    </td>
+                    <td></td>
+                    <td>
+                        <button class="game_key" onmousedown="handleCMousedown()" onmouseup="handleCMouseup()">X</button>
+                    </td>
+                    <td></td>
+                    <td>
+                        <button class="game_key" onmousedown="handleBMousedown()" onmouseup="handleBMouseup()">B</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class="game_key" onmousedown="handleSouthMousedown()" onmouseup="handleSouthMouseup()">↓</button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="game_key" onmousedown="handleAMousedown()" onmouseup="handleAMouseup()">A</button>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+        let server = {
+            ip: '192.168.1.169',
+            port: 8000
+        }
+        let device = {
+            id: 'H1PP5SS0Z',
+            key: 'f2b5f8b8ba0f4cadf35484227899d618b18d4862e87c36944a1dab0e58949bcf',
+            selected: true
+        }
+
+        // WS
+        // let client = new WebSocket(`ws://${server.ip}:${server.port}/deviceId/${device.id}/deviceKey/${device.key}`);
+        // client.onopen = function () {
+        //     console.log('open')
+        // };
+
+        // client.onmessage = function (e) {
+        //     console.log('msg', e.data);
+        // };
+
+        // client.onclose = function () {
+        //     console.log('close')
+        // };
+
+        function send(datachannelId, value) {
+            // if (client.readyState != 1) return false;
+            // let data = {
+            //     "datachannelId": datachannelId,
+            //     "values": {
+            //         "value": value
+            //     }
+            // }
+            // client.send(JSON.stringify(data));
+            // returnt rue;
+            $.post(`http://${server.ip}:${server.port}/api/data/datachannelId/${datachannelId}/value/${value}`)
+        }
+
+
+        function post(device, data, callback) {
+            $.ajax({
+                url: `http://${server.ip}:${server.port}/api/devices/${device.id}/datapoints.csv`,
+                type: 'post',
+                headers: {
+                    'deviceKey': device.key,
+                    'Content-Type': 'text/csv'
+                },
+                data: data,
+                success: callback
+            });
+        }
+
         function handleNorthMousedown() {
             console.log('handleNorthMousedown()');
             $.post("/key/north/down");
+            // send('key_north', 1);
         }
 
         function handleNorthMouseup() {
             console.log('handleNorthMouseup()');
             $.post("/key/north/up");
+            // send('key_north', 0);
         }
 
         function handleSouthMousedown() {
             console.log('handleSouthMousedown()');
-            $.post("/key/south/down");
+            $.post(`http://${server.ip}:${server.port}/api/data/datachannelId/key_south/value/1`)
+            // send('key_south', 1);
         }
 
         function handleSouthMouseup() {
             console.log('handleSouthMouseup()');
-            $.post("/key/south/up");
+            // $.post("/key/south/up");
+            // send('key_south', 0);
         }
 
         function handleEastMousedown() {
             console.log('handleEastMousedown()');
-            $.post("/key/east/down");
+            // $.post("/key/east/down");
+            // send('key_east', 1);
         }
 
         function handleEastMouseup() {
             console.log('handleEastMouseup()');
-            $.post("/key/east/up");
+            // $.post("/key/east/up");
+            // send('key_east', 0);
         }
 
         function handleWestMousedown() {
             console.log('handleWestMousedown()');
-            $.post("/key/west/down");
+            // $.post("/key/west/down");
+            // send('key_west', 1);
         }
 
         function handleWestMouseup() {
             console.log('handleWestMouseup()');
-            $.post("/key/west/up");
+            // $.post("/key/west/up");
+            // send('key_west', 0);
         }
 
         function handleAMousedown() {
             console.log('handleAMousedown()');
-            $.post("/key/a/down");
+            // $.post("/key/a/down");
+            // send('key_a', 1);
         }
 
         function handleAMouseup() {
             console.log('handleAMouseup()');
-            $.post("/key/a/up");
+            // $.post("/key/a/up");
+            // send('key_a', 0);
         }
 
         function handleBMousedown() {
             console.log('handleBMousedown()');
-            $.post("/key/b/down");
+            // $.post("/key/b/down");
+            // send('key_b', 1);
         }
 
         function handleBMouseup() {
             console.log('handleBMouseup()');
-            $.post("/key/b/up");
+            // $.post("/key/b/up");
+            // send('key_b', 0);
         }
 
         function handleCMousedown() {
             console.log('handleCMousedown()');
-            $.post("/key/c/down");
+            // $.post("/key/c/down");
+            // send('key_c', 1);
         }
 
         function handleCMouseup() {
             console.log('handleCMouseup()');
-            $.post("/key/c/up");
+            // $.post("/key/c/up");
+            // send('key_c', 0);
         }
 
         function handleDMousedown() {
             console.log('handleDMousedown()');
-            $.post("/key/d/down");
+            // $.post("/key/d/down");
+            // send('key_d', 1);
         }
 
         function handleDMouseup() {
             console.log('handleDMouseup()');
-            $.post("/key/d/up");
+            // $.post("/key/d/up");
+            // send('key_d', 0);
         }
     </script>
 </body>

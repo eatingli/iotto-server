@@ -1,11 +1,12 @@
 {
-  "name": "mcs-test",
+  "name": "iotto-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "",
   "scripts": {
     "babel": "babel ./app/src -d ./app/build -s",
-    "babel-w": "babel ./app/src -d ./app/build -s -w"
+    "babel-w": "babel ./app/src -d ./app/build -s -w",
+    "start": "node ./app/build/server.js"
   },
   "author": "eatingli<suwako.www@gmail.com>",
   "license": "MIT",

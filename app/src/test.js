@@ -1,4 +1,3 @@
-
 import MCSLiteWebsocketClient from './mcs-lite-websocket-client'
 
 function delay(time) {
@@ -6,7 +5,7 @@ function delay(time) {
 }
 
 (async() => {
-    let client = new MCSLiteWebsocketClient('192.168.1.169', 8000, 'BJ12kXNAb', '2787415e669627bc419bc2ce6c523e380e7676d6341919a87d6cd956109e648c');
+    let client = new MCSLiteWebsocketClient('192.168.1.169', 8000, 'H1PP5SS0Z', 'f2b5f8b8ba0f4cadf35484227899d618b18d4862e87c36944a1dab0e58949bcf');
 
     await client.connect();
     console.log('connected!');
@@ -31,26 +30,26 @@ function delay(time) {
         console.log('value:', values);
     })
 
-    // try {
-    //     let i = 0;
-    //     while (true) {
-    //         // break;
-    //         let v = i++ % 1;
-    //         console.log('Send', v)
-    //         client.send('1', {
-    //             value: v
-    //         });
-    //         client.send('2', {
-    //             value: v
-    //         });
-    //         await delay(1000)
-    //     }
-    //     // Read
-    //     while (true) {
+    try {
+        let i = 0;
+        while (true) {
+            // break;
+            let v = i++ % 2;
+            console.log('Send', v)
+            client.send('key_north', {
+                value: v
+            });
+            client.send('key_south', {
+                value: v
+            });
+            await delay(1000)
+        }
+        // Read
+        while (true) {
 
-    //     }
-    // } catch (e) {
-    //     console.error('err')
-    // }
+        }
+    } catch (e) {
+        console.error('err')
+    }
 
 })()
