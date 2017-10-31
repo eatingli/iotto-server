@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello</title>
+</head>
+
+<body>
+    Hello 你好
+    <button onmousedown="handleWestMousedown()" onmouseup="handleWestMouseup()">左</button>
+    <button onmousedown="handleNorthMousedown()" onmouseup="handleNorthMouseup()">上</button>
+    <button onmousedown="handleSouthMousedown()" onmouseup="handleSouthMouseup()">下</button>
+    <button onmousedown="handleEastMousedown()" onmouseup="handleEastMouseup()">右</button>
+    <button onmousedown="handleAMousedown()" onmouseup="handleAMouseup()">A</button>
+    <button onmousedown="handleBMousedown()" onmouseup="handleBMouseup()">B</button>
+    <button onmousedown="handleCMousedown()" onmouseup="handleCMouseup()">C</button>
+    <button onmousedown="handleDMousedown()" onmouseup="handleDMouseup()">D</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        function handleNorthMousedown() {
+            console.log('handleNorthMousedown()');
+            $.post("/key/north/down");
+        }
+
+        function handleNorthMouseup() {
+            console.log('handleNorthMouseup()');
+            $.post("/key/north/up");
+        }
+
+        function handleSouthMousedown() {
+            console.log('handleSouthMousedown()');
+            $.post("/key/south/down");
+        }
+
+        function handleSouthMouseup() {
+            console.log('handleSouthMouseup()');
+            $.post("/key/south/up");
+        }
+
+        function handleEastMousedown() {
+            console.log('handleEastMousedown()');
+            $.post("/key/east/down");
+        }
+
+        function handleEastMouseup() {
+            console.log('handleEastMouseup()');
+            $.post("/key/east/up");
+        }
+
+        function handleWestMousedown() {
+            console.log('handleWestMousedown()');
+            $.post("/key/west/down");
+        }
+
+        function handleWestMouseup() {
+            console.log('handleWestMouseup()');
+            $.post("/key/west/up");
+        }
+
+        function handleAMousedown() {
+            console.log('handleAMousedown()');
+            $.post("/key/a/down");
+        }
+
+        function handleAMouseup() {
+            console.log('handleAMouseup()');
+            $.post("/key/a/up");
+        }
+
+        function handleBMousedown() {
+            console.log('handleBMousedown()');
+            $.post("/key/b/down");
+        }
+
+        function handleBMouseup() {
+            console.log('handleBMouseup()');
+            $.post("/key/b/up");
+        }
+
+        function handleCMousedown() {
+            console.log('handleCMousedown()');
+            $.post("/key/c/down");
+        }
+
+        function handleCMouseup() {
+            console.log('handleCMouseup()');
+            $.post("/key/c/up");
+        }
+
+        function handleDMousedown() {
+            console.log('handleDMousedown()');
+            $.post("/key/d/down");
+        }
+
+        function handleDMouseup() {
+            console.log('handleDMouseup()');
+            $.post("/key/d/up");
+        }
+    </script>
+</body>
+
+</html>
