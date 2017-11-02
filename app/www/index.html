@@ -117,17 +117,17 @@
     </div>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="lib/jquery.min.js"></script>
     <script>
         let server = {
-            ip: '192.168.1.169',
-            port: 8000
+            ip: '192.168.1.222',
+            port: 3001
         }
-        let device = {
-            id: 'H1PP5SS0Z',
-            key: 'f2b5f8b8ba0f4cadf35484227899d618b18d4862e87c36944a1dab0e58949bcf',
-            selected: true
-        }
+        // let device = {
+        //     id: 'H1PP5SS0Z',
+        //     key: 'f2b5f8b8ba0f4cadf35484227899d618b18d4862e87c36944a1dab0e58949bcf',
+        //     selected: true
+        // }
 
         // WS
         // let client = new WebSocket(`ws://${server.ip}:${server.port}/deviceId/${device.id}/deviceKey/${device.key}`);
@@ -172,98 +172,82 @@
 
         function handleNorthMousedown() {
             console.log('handleNorthMousedown()');
-            $.post("/key/north/down");
-            // send('key_north', 1);
+            send('key_north', 1);
         }
 
         function handleNorthMouseup() {
             console.log('handleNorthMouseup()');
-            $.post("/key/north/up");
-            // send('key_north', 0);
+            send('key_north', 0);
         }
 
         function handleSouthMousedown() {
             console.log('handleSouthMousedown()');
-            $.post(`http://${server.ip}:${server.port}/api/data/datachannelId/key_south/value/1`)
-            // send('key_south', 1);
+            send('key_south', 1);
         }
 
         function handleSouthMouseup() {
             console.log('handleSouthMouseup()');
-            // $.post("/key/south/up");
-            // send('key_south', 0);
+            send('key_south', 0);
         }
 
         function handleEastMousedown() {
             console.log('handleEastMousedown()');
-            // $.post("/key/east/down");
-            // send('key_east', 1);
+            send('key_east', 1);
         }
 
         function handleEastMouseup() {
             console.log('handleEastMouseup()');
-            // $.post("/key/east/up");
-            // send('key_east', 0);
+            send('key_east', 0);
         }
 
         function handleWestMousedown() {
             console.log('handleWestMousedown()');
-            // $.post("/key/west/down");
-            // send('key_west', 1);
+            send('key_west', 1);
         }
 
         function handleWestMouseup() {
             console.log('handleWestMouseup()');
-            // $.post("/key/west/up");
-            // send('key_west', 0);
+            send('key_west', 0);
         }
 
         function handleAMousedown() {
             console.log('handleAMousedown()');
-            // $.post("/key/a/down");
-            // send('key_a', 1);
+            send('key_a', 1);
         }
 
         function handleAMouseup() {
             console.log('handleAMouseup()');
-            // $.post("/key/a/up");
-            // send('key_a', 0);
+            send('key_a', 0);
         }
 
         function handleBMousedown() {
             console.log('handleBMousedown()');
-            // $.post("/key/b/down");
-            // send('key_b', 1);
+            send('key_b', 1);
         }
 
         function handleBMouseup() {
             console.log('handleBMouseup()');
-            // $.post("/key/b/up");
-            // send('key_b', 0);
+            send('key_b', 0);
         }
 
         function handleCMousedown() {
             console.log('handleCMousedown()');
-            // $.post("/key/c/down");
-            // send('key_c', 1);
+            send('key_c', 1);
         }
 
         function handleCMouseup() {
             console.log('handleCMouseup()');
-            // $.post("/key/c/up");
-            // send('key_c', 0);
+            send('key_c', 0);
         }
 
         function handleDMousedown() {
             console.log('handleDMousedown()');
-            // $.post("/key/d/down");
-            // send('key_d', 1);
+            send('key_d', 1);
         }
 
         function handleDMouseup() {
             console.log('handleDMouseup()');
-            // $.post("/key/d/up");
-            // send('key_d', 0);
+            send('key_d', 0);
         }
     </script>
 </body>
