@@ -18,8 +18,8 @@ devices = JSON.parse(devices);
 // ];
 
 (async() => {
-    let mcsClientList = devices.map((d) => new MCSLiteWebsocketClient('192.168.1.169', 8000, d.id, d.key));
-    // let mcsClient = new MCSLiteWebsocketClient('192.168.1.169', 8000, 'H1PP5SS0Z', 'f2b5f8b8ba0f4cadf35484227899d618b18d4862e87c36944a1dab0e58949bcf');
+    let mcsClientList = devices.map((d) => new MCSLiteWebsocketClient('127.0.0.1', 8000, d.id, d.key));
+    // let mcsClient = new MCSLiteWebsocketClient('127.0.0.1', 8000, 'H1PP5SS0Z', 'f2b5f8b8ba0f4cadf35484227899d618b18d4862e87c36944a1dab0e58949bcf');
     for (let mcsClient of mcsClientList) {
         await mcsClient.connect();
         mcsClient.on('close', () => {
@@ -51,8 +51,8 @@ devices = JSON.parse(devices);
         return res.send('success');
     });
 
-    webServer.listen(3000, function () {
-        console.log('Server listening on port 3000!');
+    webServer.listen(3001, function () {
+        console.log('Server listening on port 3001!');
     });
 
 })()

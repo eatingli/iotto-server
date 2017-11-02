@@ -5,7 +5,7 @@ function delay(time) {
 }
 
 (async() => {
-    let client = new MCSLiteWebsocketClient('192.168.1.169', 8000, 'H1PP5SS0Z', 'f2b5f8b8ba0f4cadf35484227899d618b18d4862e87c36944a1dab0e58949bcf');
+    let client = new MCSLiteWebsocketClient('127.0.0.1', 8000, 'H1PP5SS0Z', 'f2b5f8b8ba0f4cadf35484227899d618b18d4862e87c36944a1dab0e58949bcf');
 
     await client.connect();
     console.log('connected!');
