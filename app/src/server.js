@@ -20,20 +20,34 @@ devices = JSON.parse(devices);
 (async() => {
     let mcsClientList = devices.map((d) => new MCSLiteWebsocketClient('127.0.0.1', 8000, d.id, d.key));
     // let mcsClient = new MCSLiteWebsocketClient('127.0.0.1', 8000, 'H1PP5SS0Z', 'f2b5f8b8ba0f4cadf35484227899d618b18d4862e87c36944a1dab0e58949bcf');
-    for (let mcsClient of mcsClientList) {
-        await mcsClient.connect();
-        mcsClient.on('close', () => {
-            console.log('Connection Closed');
-        });
 
-        mcsClient.on('error', (err) => {
-            console.error("Connection Error:", err);
-        });
+    let link = async(mcsClient) => {
+        try {
 
-        mcsClient.on('message', (data) => {
-            // console.log('On Data', data);
-        });
+            await mcsClient.connect();
+            mcsClient.on('close', () => {
+                console.log('Connection Closed');
+                setTimeout(async() => await link(mcsClient), 5000)
+            });
+
+            mcsClient.on('error', (err) => {
+                console.error("Connection Error:", err);
+            });
+
+            mcsClient.on('message', (data) => {
+                // console.log('On Data', data);
+            });
+        } catch (e) {
+            console.error('Re-connect')
+            setTimeout(async() => await link(mcsClient), 5000)
+        }
     }
+
+
+    for (let mcsClient of mcsClientList) {
+        link(mcsClient);
+    }
+
     console.log('connected!');
 
     webServer.use(express.static(path.join(__dirname, '..', 'www')));
